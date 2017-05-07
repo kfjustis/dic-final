@@ -12,18 +12,18 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"i:")
     except getopt.GetoptError:
-        print("USAGE: python3 main.py -i <file>")
+        print("USAGE: python3 encoder.py -i <file>")
         sys.exit()
 
     for opt, arg in opts:
         if opt == "-i":
             inputFile = arg
         else:
-            print("USAGE: python3 main.py -i <file>")
+            print("USAGE: python3 encoder.py -i <file>")
             sys.exit()
 
     if (inputFile is ""):
-        print("USAGE: python3 main.py -i <file>")
+        print("USAGE: python3 encoder.py -i <file>")
         sys.exit()
 
     # load image as array

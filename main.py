@@ -47,6 +47,7 @@ def main(argv):
     '''
 
     # test huffman coding
+    '''
     testFile = "test1.txt"
     compdFile = "compd.scw"
     decompdFile = "test2.txt"
@@ -55,6 +56,7 @@ def main(argv):
     enc.write("test_read.txt")
     dec = huffman.Decoder(compdFile)
     dec.decode_as(decompdFile)
+    '''
 
 if __name__ == "__main__":
     main(sys.argv[1:])

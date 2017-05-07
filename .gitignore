@@ -1,0 +1,9 @@
+# Test files
+*.txt
+*.scw
+
+# Backup files
+*.bak
+
+# Folders
+__pycache__/

@@ -1,5 +1,6 @@
 import encoder
 
+import huffman
 import getopt
 import sys
 
@@ -44,6 +45,13 @@ def main(argv):
     pass1 = encoder.Image.fromarray(imgOrig)
     pass1.show()
     '''
+
+    # test huffman coding
+    testFile = "test1.txt"
+    compdFile = "compd.scw"
+    decompdFile = "test2.txt"
+    enc = huffman.Encoder(testFile)
+    enc.write(compdFile)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

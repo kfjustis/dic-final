@@ -1,4 +1,5 @@
 import encoder_lib as encoder
+import zigzag_lib as ziggy
 
 import huffman_lib as huffman
 import getopt
@@ -35,6 +36,18 @@ def main(argv):
     imgArrFloat = imgArr.astype(float)
     imgDCT = encoder.cv2.dct(imgArrFloat)
     print("\tTransform applied!")
+
+    # zig-zag scan through array
+    # testing zig-zag
+    '''
+    x = encoder.np.array([[1,2,3],[4,5,6],[7,8,9]], encoder.np.int8)
+    print(x)
+    newMat = ziggy.printZMatrix(x)
+    print(newMat)
+    '''
+    
+    # I say just print values to text file then feed that to huffman
+    # and have it output its file - ENCODER DONE
 
     # test inverse transform
     '''

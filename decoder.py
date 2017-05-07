@@ -28,8 +28,8 @@ def main(argv):
 
     # decode huffman back into text
     print("Decoding .bit file...")
-    dec = huffman.Decoder(inputFile)
-    dec.decode_as("raw_inverse.txt")
+    #dec = huffman.Decoder(inputFile)
+    #dec.decode_as("raw_inverse.txt")
     print("\tDecoding complete!")
 
     # read imgDCTZ back in
@@ -50,8 +50,9 @@ def main(argv):
     # just having fun - read in anyway lol
     print("Loading image...")
     imgDCT = decoder.np.reshape(imgDCTZ, (512,512))
-    imgRecoded = decoder.Image.fromarray(imgDCT)
-    imgRecoded.show()
+    imgInverse = decoder.cv2.idct(imgDCT)
+    imgRecon = decoder.Image.fromarray(imgInverse)
+    imgRecon.show()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

@@ -41,11 +41,6 @@ def main(argv):
     # and have it output its file - ENCODER DONE
     print("Encoding matrix...")
     imgDCTZ = ziggy.printZMatrix(imgDCT)
-    #imgDCTZString = "".join(str(imgDCTZ))
-    #outFile = open("raw.txt", 'w')
-    #outFile.write(imgDCTZString)
-    #outFile.write(str(imgDCTZ))
-    #outFile.close()
     encoder.np.savetxt("raw.txt", imgDCTZ)
 
     enc = huffman.Encoder("raw.txt")

@@ -1,6 +1,7 @@
 # Test files
 *.txt
 *.scw
+*.bit
 
 # Backup files
 *.bak

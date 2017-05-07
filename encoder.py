@@ -33,11 +33,24 @@ def main(argv):
 
     # apply DCT transform
     print("Applying DCT transform...")
-    imgArrFloat = imgArr.astype(float)
-    imgDCT = encoder.cv2.dct(imgArrFloat)
+    #imgArrFloat = imgArr.astype(float)
+    imgDCT = encoder.cv2.dct(imgArr.astype(float))
     print("\tTransform applied!")
 
     # zig-zag scan through array
+    # store values to text file then feed that to huffman
+    # and have it output its file - ENCODER DONE
+    print("Encoding matrix...")
+    imgDCTZ = ziggy.printZMatrix(imgDCT)
+    imgDCTZString = "".join(str(imgDCTZ))
+    outFile = open("raw.txt", 'w')
+    outFile.write(imgDCTZString)
+    outFile.close()
+
+    enc = huffman.Encoder("raw.txt")
+    enc.write("image.bit")
+    print("\tEncoding complete!")
+
     # testing zig-zag
     '''
     x = encoder.np.array([[1,2,3],[4,5,6],[7,8,9]], encoder.np.int8)
@@ -45,9 +58,6 @@ def main(argv):
     newMat = ziggy.printZMatrix(x)
     print(newMat)
     '''
-    
-    # I say just print values to text file then feed that to huffman
-    # and have it output its file - ENCODER DONE
 
     # test inverse transform
     '''

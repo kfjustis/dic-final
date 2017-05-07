@@ -1,16 +1,7 @@
 import os
 import marshal
-import pickle
+import cPickle
 import array
-
-'''
-Source: http://code.activestate.com/recipes/576603-huffman-coding-
-encoderdeconder/
-
-Python 3 notes: used 2to3 to fix most issues, then used:
-http://stackoverflow.com/questions/41913043/typeerror-not-supported-between-
-instances-of-tuple-and-str to solve comparator issues with nodes.sort()
-'''
 
 class HuffmanNode(object):
     recurPrint = False
@@ -44,7 +35,7 @@ def _pop_first_two_nodes(nodes):
         return nodes[0], None
 
 def _build_tree(nodes):
-    nodes.sort(key=lambda t: nodes)
+    nodes.sort()
     while(True):
         first, second = _pop_first_two_nodes(nodes)
         if not second:
@@ -53,7 +44,7 @@ def _build_tree(nodes):
         first.p = parent
         second.p = parent
         nodes.insert(0, parent)
-        nodes.sort(key=lambda t: nodes)
+        nodes.sort()
 
 def _gen_huffman_code(node, dict_codes, buffer_stack=[]):
     if not node.L and not node.R:
@@ -82,8 +73,8 @@ class Encoder(object):
             if os.path.exists(filename_or_long_str):
                 self.encode(filename_or_long_str)
             else:
-                print('[Encoder] take \'%s\' as a string to be encoded.'\
-                      % filename_or_long_str)
+                print '[Encoder] take \'%s\' as a string to be encoded.'\
+                      % filename_or_long_str
                 self.long_str = filename_or_long_str
 
     def __get_long_str(self):
@@ -99,7 +90,7 @@ class Encoder(object):
     def _get_tree_root(self):
         d = _cal_freq(self.long_str)
         return _build_tree(
-            [HuffmanNode(ch=ch, fq=int(fq)) for ch, fq in d.items()]
+            [HuffmanNode(ch=ch, fq=int(fq)) for ch, fq in d.iteritems()]
             )
 
     def _get_code_map(self):
@@ -139,11 +130,11 @@ class Encoder(object):
         if self._long_str:
             fcompressed = open(filename, 'wb')
             marshal.dump(
-                (pickle.dumps(self.root), self.code_length, self.array_codes),
+                (cPickle.dumps(self.root), self.code_length, self.array_codes),
                 fcompressed)
             fcompressed.close()
         else:
-            print("You haven't set 'long_str' attribute.")
+            print "You haven't set 'long_str' attribute."
 
 class Decoder(object):
     def __init__(self, filename_or_raw_str=None):
@@ -152,10 +143,10 @@ class Decoder(object):
                 filename = filename_or_raw_str
                 self.read(filename)
             else:
-                print('[Decoder] take \'%s\' as raw string' % filename_or_raw_str)
+                print '[Decoder] take \'%s\' as raw string' % filename_or_raw_str
                 raw_string = filename_or_raw_str
                 unpickled_root, length, array_codes = marshal.loads(raw_string)
-                self.root = pickle.loads(unpickled_root)
+                self.root = cPickle.loads(unpickled_root)
                 self.code_length = length
                 self.array_codes = array.array('B', array_codes)
 
@@ -179,14 +170,12 @@ class Decoder(object):
                         string_buf.append(node.c)
                         node = self.root
 
-        # Kynan: Convert decimal values back to chars!
-        char_list = [chr(c) for c in string_buf]
-        return ''.join(char_list) # return ''.join(string_buf)
+        return ''.join(string_buf)
 
     def read(self, filename):
         fp = open(filename, 'rb')
         unpickled_root, length, array_codes = marshal.load(fp)
-        self.root = pickle.loads(unpickled_root)
+        self.root = cPickle.loads(unpickled_root)
         self.code_length = length
         self.array_codes = array.array('B', array_codes)
         fp.close()
@@ -194,6 +183,5 @@ class Decoder(object):
     def decode_as(self, filename):
         decoded = self._decode()
         fout = open(filename, 'wb')
-        # Kynan: byte-like object required for write()
-        fout.write(decoded.encode())
+        fout.write(decoded)
         fout.close()

@@ -52,6 +52,9 @@ def main(argv):
     decompdFile = "test2.txt"
     enc = huffman.Encoder(testFile)
     enc.write(compdFile)
+    enc.write("test_read.txt")
+    dec = huffman.Decoder(compdFile)
+    dec.decode_as(decompdFile)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

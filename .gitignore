@@ -2,9 +2,11 @@
 *.txt
 *.scw
 *.bit
+*.pyc
 
 # Backup files
 *.bak
 
 # Folders
 __pycache__/
+.idea/

@@ -1,11 +1,12 @@
+import math
+import numpy as np
+
 '''
 Source: http://wdxtub.com/interview/14520595473495.html
-I modified this for functional design and converted it
+I modified this for functional design then converted it
 to Python 3 with 2to3.
 '''
-# @param: a matrix of integers
-# @return: a list of integers
-def printZMatrix(matrix):
+def generateZigMatrix(matrix):
     i = 0
     j = 0
     m = len(matrix)
@@ -35,5 +36,123 @@ def printZMatrix(matrix):
             else:
                 i += 1
                 j -= 1
+
+    return ret
+
+def zigRedux(matrix):
+    k = False
+    i = 0
+    x = 0
+    y = 0
+    j = 0
+    size = 3
+
+    # list to store all the values as 1D
+    ret = []
+
+    # top
+    while i < size:
+        if k:
+            x = 0
+            y = i
+            while x <= i:
+                ret.append(matrix[x][y])
+                x += 1
+                y -= 1
+            k = False
+        else:
+            x = i
+            y = 0
+            while y <= i:
+                ret.append(matrix[x][y])
+                x -= 1
+                y += 1
+            k = True
+        i += 1
+
+    # bottom
+    j = size - 2
+    while j >= 0:
+        if k:
+            x = size - 1 - j
+            y = size - 1
+            while x <= size-1:
+                ret.append(matrix[x][y])
+                print("Adding: " + str(matrix[x][y]))
+                x += 1
+                y -= 1
+            k = False
+        else:
+            x = size - 1 - j
+            y = size - 1
+            while y <= size-1:
+                ret.append(matrix[x][y])
+                print("adding: " + str(matrix[x][y]))
+                x -= 1
+                y += 1
+            k = True
+        j -= 1
+
+    return ret
+
+def iZigRedux(matrix):
+    # dimension 2D array from 1D length (length must be square)
+    dim = int(math.sqrt(len(matrix)))
+
+    k = False
+    i = 0
+    x = 0
+    y = 0
+    j = 0
+    size = 50
+    count = 0
+
+    # build 2d array
+    ret = np.zeros(shape=(dim,dim), dtype="float")
+
+    # top-left triangle of matrix
+    while i < size:
+        if k:
+            x = 0
+            y = i
+            while x <= i:
+                ret[x][y] = matrix[count]
+                count += 1
+                x += 1
+                y -= 1
+            k = False
+        else:
+            x = i
+            y = 0
+            while y <= i:
+                ret[x][y] = matrix[count]
+                count += 1
+                x -= 1
+                y += 1
+            k = True
+        i += 1
+
+    # bottom-right triangle of matrix
+    j = size - 2
+    while j >= 0:
+        if k:
+            x = size - 1 - j
+            y = size - 1
+            while x <= size-1:
+                ret[x][y] = matrix[count]
+                count += 1
+                x += 1
+                y -= 1
+            k = False
+        else:
+            x = size - 1 - j
+            y = size - 1
+            while y <= size-1:
+                ret[x][y] = matrix[count]
+                count += 1
+                x -= 1
+                y += 1
+            k = True
+        j -= 1
 
     return ret

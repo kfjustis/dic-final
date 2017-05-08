@@ -38,21 +38,33 @@ def main(argv):
     print("\tArray loaded!")
 
     # reverse zig-zag
+    print("Unpacking zigged matrix...")
+    imgDCT = ziggy.iZigRedux(imgDCTZ)
+    print("\tMatrix unpacked!")
+
+    print("Reversing DCT...")
+    imgInverse = decoder.cv2.idct(imgDCT.astype(float))
+    imgRecon = decoder.Image.fromarray(imgInverse.astype("uint8"))
+    imgRecon.show()
+
     '''
-    x = decoder.np.array([[1,2,3],[4,5,6],[7,8,9]], decoder.np.int8)
+    print("Testing zigzag...")
+    x = encoder.np.array([[1,2,3],[4,5,6],[7,8,9]], encoder.np.int8)
     print(x)
-    newMat = ziggy.printZMatrix(x)
-    print(newMat)
-    newMat2D = decoder.np.reshape(newMat, (3,3))
-    print(newMat2D)
+    newArr = ziggy.zigRedux(x)
+    print(newArr)
+    new2DArr = ziggy.iZigRedux(newArr)
+    print(new2DArr)
+    print("\tTest complete!")
     '''
 
+    '''
     # just having fun - read in anyway lol
     print("Loading image...")
     imgDCT = decoder.np.reshape(imgDCTZ, (512,512))
     imgInverse = decoder.cv2.idct(imgDCT)
     imgRecon = decoder.Image.fromarray(imgInverse)
     imgRecon.show()
-
+    '''
 if __name__ == "__main__":
     main(sys.argv[1:])

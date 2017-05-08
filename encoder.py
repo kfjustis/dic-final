@@ -22,33 +22,32 @@ def main(argv):
             print("USAGE: python3 encoder.py -i <file>")
             sys.exit()
 
-    if (inputFile is ""):
+    if inputFile is "":
         print("USAGE: python3 encoder.py -i <file>")
         sys.exit()
 
     # load image as array
     print("Loading image...")
-    #imgArr = encoder.load_image_as_array(inputFile)
+    imgArr = encoder.load_image_as_array(inputFile)
+    print(imgArr)
     print("\tImage loaded!")
 
     # apply DCT transform
     print("Applying DCT transform...")
-    #imgDCT = encoder.cv2.dct(imgArr.astype(float))
+    imgDCT = encoder.cv2.dct(imgArr.astype(float))
     print("\tTransform applied!")
 
     # zig-zag scan through array
     # store values to text file then feed that to huffman
     # and have it output its file - ENCODER DONE
     print("Encoding matrix...")
-    #imgDCTZ = ziggy.printZMatrix(imgDCT)
-    #encoder.np.savetxt("raw.txt", imgDCTZ)
+    #imgDCTZ = ziggy.generateZigMatrix(imgDCT)
+    imgDCTZ = ziggy.zigRedux(imgDCT)
+    encoder.np.savetxt("raw.txt", imgDCTZ)
 
-    #enc = huffman.Encoder("raw.txt")
-    #enc.write("image.bit")
+    enc = huffman.Encoder("raw.txt")
+    enc.write("image.bit")
     print("\tEncoding complete!")
 
-    print("Testing zigzag...")
-
-    print("\tTest complete!")
 if __name__ == "__main__":
     main(sys.argv[1:])

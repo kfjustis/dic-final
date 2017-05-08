@@ -39,63 +39,7 @@ def generateZigMatrix(matrix):
 
     return ret
 
-def zigRedux(matrix):
-    k = False
-    i = 0
-    x = 0
-    y = 0
-    j = 0
-    size = 3
-
-    # list to store all the values as 1D
-    ret = []
-
-    # top
-    while i < size:
-        if k:
-            x = 0
-            y = i
-            while x <= i:
-                ret.append(matrix[x][y])
-                x += 1
-                y -= 1
-            k = False
-        else:
-            x = i
-            y = 0
-            while y <= i:
-                ret.append(matrix[x][y])
-                x -= 1
-                y += 1
-            k = True
-        i += 1
-
-    # bottom
-    j = size - 2
-    while j >= 0:
-        if k:
-            x = size - 1 - j
-            y = size - 1
-            while x <= size-1:
-                ret.append(matrix[x][y])
-                print("Adding: " + str(matrix[x][y]))
-                x += 1
-                y -= 1
-            k = False
-        else:
-            x = size - 1 - j
-            y = size - 1
-            while y <= size-1:
-                ret.append(matrix[x][y])
-                print("adding: " + str(matrix[x][y]))
-                x -= 1
-                y += 1
-            k = True
-        j -= 1
-
-    return ret
-
-def iZigRedux(matrix, qsize):
+def iZigZag(matrix, qsize):
     # dimension 2D array from 1D length (length must be square)
     dim = int(math.sqrt(len(matrix)))
 

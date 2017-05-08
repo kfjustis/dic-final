@@ -29,7 +29,6 @@ def main(argv):
     # load image as array
     print("Loading image...")
     imgArr = encoder.load_image_as_array(inputFile)
-    print(imgArr)
     print("\tImage loaded!")
 
     # apply DCT transform
@@ -41,8 +40,7 @@ def main(argv):
     # store values to text file then feed that to huffman
     # and have it output its file - ENCODER DONE
     print("Encoding matrix...")
-    #imgDCTZ = ziggy.generateZigMatrix(imgDCT)
-    imgDCTZ = ziggy.zigRedux(imgDCT)
+    imgDCTZ = ziggy.generateZigMatrix(imgDCT)
     encoder.np.savetxt("raw.txt", imgDCTZ)
 
     enc = huffman.Encoder("raw.txt")

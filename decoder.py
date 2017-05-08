@@ -31,8 +31,8 @@ def main(argv):
 
     # decode huffman back into text
     print("Decoding .bit file...")
-    #dec = huffman.Decoder(inputFile)
-    #dec.decode_as("raw_inverse.txt")
+    dec = huffman.Decoder(inputFile)
+    dec.decode_as("raw_inverse.txt")
     print("\tDecoding complete!")
 
     # read imgDCTZ back in
@@ -42,12 +42,15 @@ def main(argv):
 
     # reverse zig-zag
     print("Unpacking zigged matrix...")
-    imgDCT = ziggy.iZigRedux(imgDCTZ, qsize)
+    imgDCT = ziggy.iZigZag(imgDCTZ, qsize)
     print("\tMatrix unpacked!")
 
     print("Reversing DCT...")
     imgInverse = decoder.cv2.idct(imgDCT.astype(float))
-    imgRecon = decoder.Image.fromarray(imgInverse.astype("uint8"))
+    print("\tDCT reversed!")
+    #imgRecon = decoder.Image.fromarray(imgInverse.astype("uint8"))
+    imgRecon = decoder.Image.fromarray(imgInverse)
+    print("Displaying image...")
     imgRecon.show()
 
 if __name__ == "__main__":

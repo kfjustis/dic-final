@@ -7,23 +7,26 @@ import sys
 
 def main(argv):
     inputFile = ""
+    qsize = ""
 
     # load file with command line args
     try:
-        opts, args = getopt.getopt(argv, "i:")
+        opts, args = getopt.getopt(argv, "i:q:")
     except getopt.GetoptError:
-        print("USAGE: python3 decoder.py -i <file>")
+        print("USAGE: python3 decoder.py -i <file> -q <qsize>")
         sys.exit()
 
     for opt, arg in opts:
         if opt == "-i":
             inputFile = arg
+        elif opt == "-q":
+            qsize = int(arg)
         else:
-            print("USAGE: python3 decoder.py -i <file>")
+            print("USAGE: python3 decoder.py -i <file> -q <qsize>")
             sys.exit()
 
     if (inputFile is ""):
-        print("No file was read!\nUSAGE: python3 decoder.py -i <file>")
+        print("USAGE: python3 decoder.py -i <file> -q <qsize>")
         sys.exit()
 
     # decode huffman back into text
@@ -39,7 +42,7 @@ def main(argv):
 
     # reverse zig-zag
     print("Unpacking zigged matrix...")
-    imgDCT = ziggy.iZigRedux(imgDCTZ)
+    imgDCT = ziggy.iZigRedux(imgDCTZ, qsize)
     print("\tMatrix unpacked!")
 
     print("Reversing DCT...")
@@ -47,24 +50,5 @@ def main(argv):
     imgRecon = decoder.Image.fromarray(imgInverse.astype("uint8"))
     imgRecon.show()
 
-    '''
-    print("Testing zigzag...")
-    x = encoder.np.array([[1,2,3],[4,5,6],[7,8,9]], encoder.np.int8)
-    print(x)
-    newArr = ziggy.zigRedux(x)
-    print(newArr)
-    new2DArr = ziggy.iZigRedux(newArr)
-    print(new2DArr)
-    print("\tTest complete!")
-    '''
-
-    '''
-    # just having fun - read in anyway lol
-    print("Loading image...")
-    imgDCT = decoder.np.reshape(imgDCTZ, (512,512))
-    imgInverse = decoder.cv2.idct(imgDCT)
-    imgRecon = decoder.Image.fromarray(imgInverse)
-    imgRecon.show()
-    '''
 if __name__ == "__main__":
     main(sys.argv[1:])

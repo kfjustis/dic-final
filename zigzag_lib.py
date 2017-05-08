@@ -95,7 +95,7 @@ def zigRedux(matrix):
 
     return ret
 
-def iZigRedux(matrix):
+def iZigRedux(matrix, qsize):
     # dimension 2D array from 1D length (length must be square)
     dim = int(math.sqrt(len(matrix)))
 
@@ -104,7 +104,7 @@ def iZigRedux(matrix):
     x = 0
     y = 0
     j = 0
-    size = 50
+    size = qsize
     count = 0
 
     # build 2d array

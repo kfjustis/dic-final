@@ -25,7 +25,11 @@ def main(argv):
             print("USAGE: python3 decoder.py -i <file> -q <qsize>")
             sys.exit()
 
-    if (inputFile is ""):
+    if inputFile is "":
+        print("USAGE: python3 decoder.py -i <file> -q <qsize>")
+        sys.exit()
+
+    if qsize is "":
         print("USAGE: python3 decoder.py -i <file> -q <qsize>")
         sys.exit()
 
@@ -48,7 +52,6 @@ def main(argv):
     print("Reversing DCT...")
     imgInverse = decoder.cv2.idct(imgDCT.astype(float))
     print("\tDCT reversed!")
-    #imgRecon = decoder.Image.fromarray(imgInverse.astype("uint8"))
     imgRecon = decoder.Image.fromarray(imgInverse)
     print("Displaying image...")
     imgRecon.show()

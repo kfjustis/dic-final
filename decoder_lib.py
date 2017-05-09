@@ -13,10 +13,23 @@ def getImageError(img1_arr, img2_arr):
 
     i = 0
     error = 0.0
+    eArr = []
     while i < len(arr1):
-        error += math.exp(abs(int(arr1[i]) - int(arr2[i])))
-        error = error / len(arr1)
+        error += math.pow(abs((int(arr1[i]) - int(arr2[i]))), 2)
+        eArr.append(error)
         i += 1
 
-    #ret = total/(math.pow(512, 2))
+    error = error / (math.pow(512, 2))
+
+    plt.plot(eArr)
+    plt.show()
+
     return error
+
+def getPSNR(mse):
+    if mse is None:
+        return None
+
+    psnr = 10 * math.log10(math.pow(255, 2) / mse)
+
+    return psnr

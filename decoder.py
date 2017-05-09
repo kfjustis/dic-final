@@ -75,10 +75,8 @@ def main(argv):
         print("\tERROR: Could not display error!")
 
     print("Calculating PSNR...")
-
-    print("Generating graph...")
-    #plt.plot(imgRecon)
-    #plt.show()
+    psnr = decoder.getPSNR(iError)
+    print("\tPSNR: " + str(psnr))
 
 if __name__ == "__main__":
     main(sys.argv[1:])

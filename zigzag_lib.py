@@ -7,6 +7,9 @@ I modified this for functional design then converted it
 to Python 3 with 2to3.
 '''
 def generateZigMatrix(matrix):
+    if matrix is None:
+        return None
+
     i = 0
     j = 0
     m = len(matrix)

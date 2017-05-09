@@ -4,6 +4,9 @@
 *.bit
 *.pyc
 
+# Extra files
+*.DS_Store
+
 # Backup files
 *.bak
 

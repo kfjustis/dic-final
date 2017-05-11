@@ -44,8 +44,8 @@ def main(argv):
 
     # decode huffman back into text
     print("Decoding .bit file...")
-    #dec = huffman.Decoder(inputFile1)
-    #dec.decode_as("raw_inverse.txt")
+    dec = huffman.Decoder(inputFile1)
+    dec.decode_as("raw_inverse.txt")
     print("\tDecoding complete!")
 
     # read imgDCTZ back in

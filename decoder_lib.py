@@ -21,6 +21,10 @@ def getImageError(img1_arr, img2_arr):
 
     error = error / (math.pow(512, 2))
 
+    plt.figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+    plt.title("Resulting Error per Pixel")
+    plt.ylabel("Error")
+    plt.xlabel("Pixel value")
     plt.plot(eArr)
     plt.show()
 

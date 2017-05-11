@@ -12,4 +12,8 @@ Then run ```decoder.py``` with
 
     python3 decoder.py -b image.bit -i <image filepath> -q <quantization step size>
 
-Note: The image filepath used with ```decoder.py``` must match the filepath used with ```encoder.py```
+Notes:
+
+* The image filepath used with ```decoder.py``` must match the filepath used with ```encoder.py```
+
+* For best results, use values between 0 and 512 (inclusive) for step size arguments
